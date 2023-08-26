@@ -1,0 +1,20 @@
+doctrine:
+    dbal:
+        {
+            connections:
+                {
+                    default:
+                        {
+                            host: '%env(string:DATABASE_HOST)%',
+                            port: '%env(string:DATABASE_PORT)%',
+                            user: '%env(string:DATABASE_USER)%',
+                            password: '%env(string:DATABASE_PASSWORD)%',
+                            dbname: '%env(string:DATABASE_DBNAME)%',
+                            mapping_types: { 
+                                enum: string, 
+                                bit: boolean 
+                            },
+                            server_version: 10.4.28-MariaDB,
+                        },
+                },
+        }
