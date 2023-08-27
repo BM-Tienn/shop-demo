@@ -1,0 +1,119 @@
+<!-- About Start -->
+<div class="container-xxl py-5">
+	<div class="container">
+		<div class="row g-5">
+			<div class="col-lg-6">
+				<div class="row g-3">
+					<div class="col-6 text-end">
+
+						{% if editmode %}
+
+							{{ pimcore_image("imageAboutOne", {'title': "Ảnh giới thiệu", class: 'img-fluid bg-white w-100 mb-3 wow fadeIn' }) }}
+							{{ pimcore_image("imageAboutTwo", {'title': "Ảnh giới thiệu", class: 'img-fluid bg-white w-50 wow fadeIn' }) }}
+
+						{% else %}
+
+							{% set imageAboutOne = pimcore_image('imageAboutOne').isEmpty() ?
+                            pimcore_website_config('about') : pimcore_image('imageAboutOne').image %}
+
+							{{ include("components/image.html.twig", { image: imageAboutOne, class: "img-fluid bg-white w-100 mb-3 wow fadeIn", data: 'data-wow-delay="0.1s"' }) }}
+
+							{% set imageAboutTwo = pimcore_image('imageAboutTwo').isEmpty() ?
+                            pimcore_website_config('about') : pimcore_image('imageAboutTwo').image %}
+
+							{{ include("components/image.html.twig", { image: imageAboutTwo, class: "img-fluid bg-white w-50 wow fadeIn", data: 'data-wow-delay="0.2s"' }) }}
+
+						{% endif %}
+
+					</div>
+					<div class="col-6">
+
+						{% if editmode %}
+
+							{{ pimcore_image("imageAboutThree", {'title': "Ảnh giới thiệu", class: 'img-fluid bg-white w-50 mb-3 wow fadeIn' }) }}
+							{{ pimcore_image("imageAboutFour", {'title': "Ảnh giới thiệu", class: 'img-fluid bg-white w-100 wow fadeIn' }) }}
+
+						{% else %}
+
+							{% set imageAboutThree = pimcore_image('imageAboutThree').isEmpty() ?
+                            pimcore_website_config('about') : pimcore_image('imageAboutThree').image %}
+
+							{{ include("components/image.html.twig", { image: imageAboutThree, class: "img-fluid bg-white w-50 mb-3 wow fadeIn", data: 'data-wow-delay="0.3s"' }) }}
+
+							{% set imageAboutFour = pimcore_image('imageAboutFour').isEmpty() ?
+                            pimcore_website_config('about') : pimcore_image('imageAboutFour').image %}
+
+							{{ include("components/image.html.twig", { image: imageAboutFour, class: "img-fluid bg-white w-100 wow fadeIn", data: 'data-wow-delay="0.4s"' }) }}
+
+						{% endif %}
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+				<div class="section-title">
+					<p class="fs-5 fw-medium fst-italic text-primary">
+						{{ pimcore_input('description', { placeholder: 'Mô tả chính' }) }}
+					</p>
+					<h1 class="display-6">
+						{{ pimcore_input('title', { placeholder: 'Tiêu đề chính' }) }}
+					</h1>
+				</div>
+
+				<div class="row g-3 mb-4">
+					<div class="col-sm-4">
+						{% if editmode %}
+							{{ pimcore_image("imageContentOne", {'title': "Ảnh mô tả chi tiết", class: 'img-fluid bg-white w-100' }) }}
+						{% else %}
+							{% set imageContentOne = pimcore_image('imageContentOne').isEmpty() ?
+                            pimcore_website_config('about') : pimcore_image('imageContentOne').image %}
+
+							{{ include("components/image.html.twig", { image: imageContentOne, class: "img-fluid bg-white w-100" }) }}
+						{% endif %}
+					</div>
+					<div class="col-sm-8">
+						<h5>
+							{{ pimcore_input('titleContentOne', { placeholder: 'Tiêu đề chi tiết' }) }}
+						</h5>
+						<p class="mb-0">
+							{{ 
+                                editmode 
+                                ? pimcore_textarea("descriptionContentOne", { placeholder: 'Mô tả chi tiết', htmlspecialchars: false }) 
+                                : pimcore_textarea("descriptionContentOne", { htmlspecialchars: false }) | nl2br 
+                            }}
+						</p>
+					</div>
+				</div>
+
+				<div class="border-top mb-4"></div>
+
+				<div class="row g-3">
+					<div class="col-sm-8">
+						<h5>
+							{{ pimcore_input('titleContentTwo', { placeholder: 'Tiêu đề chi tiết' }) }}
+						</h5>
+						<p class="mb-0">
+							{{ 
+                                editmode 
+                                ? pimcore_textarea("descriptionContentTwo", { placeholder: 'Mô tả chi tiết', htmlspecialchars: false }) 
+                                : pimcore_textarea("descriptionContentTwo", { htmlspecialchars: false }) | nl2br 
+                            }}
+						</p>
+					</div>
+					<div class="col-sm-4">
+						{% if editmode %}
+							{{ pimcore_image("imageContentTwo", {'title': "Ảnh mô tả chi tiết", class: 'img-fluid bg-white w-100' }) }}
+						{% else %}
+							{% set imageContentTwo = pimcore_image('imageContentTwo').isEmpty() ?
+                            pimcore_website_config('about') : pimcore_image('imageContentTwo').image %}
+
+							{{ include("components/image.html.twig", { image: imageContentTwo, class: "img-fluid bg-white w-100" }) }}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- About End -->

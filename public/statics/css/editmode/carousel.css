@@ -1,0 +1,55 @@
+#header-carousel {
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+}
+
+#header-carousel .pimcore_block_entry {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    margin: 20px;
+}
+
+#header-carousel .pimcore_block_buttons, #header-carousel .pimcore_editable_link , #header-carousel .pimcore_editable_image_empty{
+    width: 30% !important;
+    margin: 10px;
+}
+
+#header-carousel .pimcore_editable.pimcore_editable_input.empty {
+    display: grid;
+    width: 27%;
+    grid-template-columns: calc(25% - 20px) 30% 35%;
+    grid-gap: 10px;
+    margin: 10px;
+}
+
+#header-carousel .pimcore_editable.pimcore_editable_input {
+    display: grid;
+    width: 27%;
+    grid-gap: 10px;
+    margin: 10px;
+}
+
+#header-carousel .pimcore_editable_image_empty, #header-carousel .pimcore_editable_image {
+    height: 200px !important;
+    margin-left: 30px !important;;
+}
+
+#header-carousel .pimcore_editable_image_alt {
+    width: 100%;
+    display: flex !important;
+}
+
+#header-carousel .pimcore_editable_link  {
+    padding-left: 40px;
+}
+/* #header-carousel .pimcore_editable_link .pimcore_edit_link_button {
+    position: relative;
+    right: -195px;
+}
+
+#header-carousel .pimcore_editable_link .pimcore_open_link_button {
+    position: relative;
+    right: -190px;
+} */

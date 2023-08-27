@@ -1,0 +1,47 @@
+<!-- Article Start -->
+<div class="container-xxl py-5">
+	<div class="container">
+		<div class="row g-5">
+			<div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+				{% if editmode %}
+					{{ pimcore_image("image", { 'title': "Ảnh mô tả", class: 'img-fluid' }) }}
+				{% else %}
+					{% set image = pimcore_image('image').isEmpty() ?
+                            pimcore_website_config('article') : pimcore_image('image').image %}
+
+					{{ include("components/image.html.twig", { image: image, class: "img-fluid" }) }}
+				{% endif %}
+			</div>
+
+			<div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+				<div class="section-title">
+					<p class="fs-5 fw-medium fst-italic text-primary">
+                        {{ pimcore_input('description', { placeholder: 'Mô tả chính' }) }}
+                    </p>
+					<h1 class="display-6">
+                        {{ pimcore_input('title', { placeholder: 'Tiêu đề chính' }) }}
+                    </h1>
+				</div>
+
+                {% for i in pimcore_block('article').iterator %}
+                    <p class="mb-4">
+                        {{ 
+                            editmode 
+                            ? pimcore_textarea("description" ~ i, { placeholder: 'Mô tả chi tiết', htmlspecialchars: false }) 
+                            : pimcore_textarea("description" ~ i, { htmlspecialchars: false }) | nl2br 
+                        }}
+                    </p>
+                {% endfor %}
+
+                {% if editmode %}
+                    {{ pimcore_link("link", { class: 'btn btn-primary rounded-pill py-3 px-5 mt-3' }) }}
+                {% else %}
+                    <a href="{{ pimcore_link("link").getHref() }}" class="btn btn-primary rounded-pill py-3 px-5">
+                        {{ pimcore_link("link").getText() }}
+                    </a>
+                {% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Article End -->

@@ -1,0 +1,13 @@
+
+{% set link = image %}
+{% set image = image is instanceof('\\Pimcore\\Model\\Asset\\Image\\\Thumbnail') ? image.asset : image %}
+
+{% if image %}
+<img
+    src="{{ link ?? '' }}"
+    alt="{{ image ? image.getMetadata('alt') : '' }}"
+    title="{{ image ? image.getMetadata('title') : '' }}"
+    class="{{ class is defined ? class : '' }}"
+    {{ data is defined ? data : '' }}
+>
+{% endif %}

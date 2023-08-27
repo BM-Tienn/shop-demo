@@ -9,6 +9,51 @@
     <meta content="" name="description">
 
     {{ include("includes/link.html.twig") }}
+    
+    {% apply spaceless %}
+        {% do pimcore_head_meta().setProperty('og:type', 'website') %}
+
+        {# Favicon #}
+        {% set favicon = pimcore_website_config('website_favicon') %}
+        {% if favicon %}
+            {% do pimcore_head_link().appendStylesheet(
+            favicon.fullPath,
+            null,
+            null,
+            {
+                rel: "icon",
+                type: "image/x-icon"
+            }
+            ) %}
+        {% endif %}
+
+        {% if not document is defined or not document %}
+            {% set document = pimcore_document(1) %}
+        {% endif %}
+
+        {% if document is instanceof('\\Pimcore\\Model\\Document\\Link') %}
+            {# @var document \Pimcore\Model\Document\Link #}
+            {% set document = document.getElement() %}
+        {% endif %}
+
+        {% if document.getTitle() is not empty %}
+            {% do pimcore_head_title(document.getTitle()) %}
+        {% endif %}
+
+        {% if document.getDescription() is not empty %}
+            {% do pimcore_head_meta().setDescription(document.getDescription()) %}
+        {% endif %}
+
+    {% endapply %}
+
+    {% block layout_head_meta deferred %}
+        {{ pimcore_head_title() }}
+        {{ pimcore_head_meta() }}
+    {% endblock %}
+
+    {% block head_stylesheets deferred %}
+        {{ pimcore_head_link() }}
+    {% endblock %}
 </head>
 
 <body>

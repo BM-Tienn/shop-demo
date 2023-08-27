@@ -1,0 +1,61 @@
+{% if editmode %}
+    {% do pimcore_head_link().appendStylesheet(asset('statics/css/editmode/carousel.css')) %}
+{% endif %}
+
+<!-- Carousel Start -->
+<div class="container-fluid px-0 mb-5">
+	<div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+		{% if editmode %}
+
+			{% for i in pimcore_block('carousel').iterator %}
+                {{ pimcore_image("image", { 'title': "Ảnh slider" }) }}
+                {{ pimcore_link("link") }}
+                {{ pimcore_input('description', { placeholder: 'Mô tả', class: 'p-3' }) }}
+				{{ pimcore_input('strong', { placeholder: 'Mô tả nổi bật', class: 'p-3' }) }}
+				{{ pimcore_input('title', { placeholder: 'Tiêu đề chính', class: 'p-3' }) }}
+			{% endfor %}
+
+		{% else %}
+
+			<div class="carousel-inner">
+                {% for i in pimcore_block('carousel').iterator %}
+
+                    <div class="carousel-item {% if loop.first %} active {% endif %}">
+                        {% set image = pimcore_image('image').isEmpty() ?
+                            pimcore_website_config('carousel') : pimcore_image('image').image %}
+
+                        {{ include("components/image.html.twig", { image: image, class: "w-100" }) }}
+                        <div class="carousel-caption">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-7 text-center">
+                                        <p class="fs-4 text-white animated zoomIn">{{ pimcore_input('description') }}
+                                            <strong class="text-dark">{{ pimcore_input('strong') }}</strong>
+                                        </p>
+                                        <h1 class="display-1 text-dark mb-4 animated zoomIn">{{ pimcore_input('title') }}</h1>
+                                        <a href="{{ pimcore_link("link").getHref() }}" class="btn btn-light rounded-pill py-3 px-5 animated zoomIn">{{ pimcore_link("link").getText() }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                {% endfor %}
+			</div>
+
+			<button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+            
+			<button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+
+		{% endif %}
+
+	</div>
+</div>
+<!-- Carousel End -->
