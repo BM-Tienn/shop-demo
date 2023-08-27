@@ -11,4 +11,7 @@ return [
     Pimcore\Bundle\UuidBundle\PimcoreUuidBundle::class => ['all' => true],
     Pimcore\Bundle\WordExportBundle\PimcoreWordExportBundle::class => ['all' => true],
     Pimcore\Bundle\XliffBundle\PimcoreXliffBundle::class => ['all' => true],
+    Pimcore\Bundle\EcommerceFrameworkBundle\PimcoreEcommerceFrameworkBundle::class => ['all' => true],
+    CustomerManagementFrameworkBundle\PimcoreCustomerManagementFrameworkBundle::class => ['all' => true],
+    Pimcore\Bundle\ObjectMergerBundle\ObjectMergerBundle::class => ['all' => true],
 ];
