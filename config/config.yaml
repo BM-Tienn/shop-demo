@@ -1,9 +1,11 @@
 imports:
     - { resource: 'local/' }
-
+    - { resource: "cmf.yaml" }
 
 pimcore:
-
+    bundles:
+        search_paths:
+            - bundles/HelperBundle
 # IMPORTANT Notice!
 # Following there are only some examples listed, for a full list of possible options, please run the following command:
 # ./bin/console debug:config pimcore

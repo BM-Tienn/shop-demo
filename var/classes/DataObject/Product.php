@@ -13,6 +13,7 @@
  * - image [image]
  * - video [video]
  * - gallery [imageGallery]
+ * - categories [manyToManyObjectRelation]
  */
 
 namespace Pimcore\Model\DataObject;
@@ -28,9 +29,10 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\Product\Listing|\Pimcore\Model\DataObject\Product|null getByContent(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\Product\Listing|\Pimcore\Model\DataObject\Product|null getByPrice(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\Product\Listing|\Pimcore\Model\DataObject\Product|null getByImage(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\Product\Listing|\Pimcore\Model\DataObject\Product|null getByCategories(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 */
 
-class Product extends \Pimcore\Bundle\EcommerceFrameworkBundle\Model\AbstractProduct
+class Product extends \App\Model\AbstractProduct
 {
 public const FIELD_NAME = 'name';
 public const FIELD_DESCRIPTION = 'description';
@@ -39,6 +41,7 @@ public const FIELD_PRICE = 'price';
 public const FIELD_IMAGE = 'image';
 public const FIELD_VIDEO = 'video';
 public const FIELD_GALLERY = 'gallery';
+public const FIELD_CATEGORIES = 'categories';
 
 protected $classId = "product";
 protected $className = "Product";
@@ -47,6 +50,7 @@ protected $price;
 protected $image;
 protected $video;
 protected $gallery;
+protected $categories;
 
 
 /**
@@ -343,6 +347,49 @@ public function setGallery(?\Pimcore\Model\DataObject\Data\ImageGallery $gallery
 
 	$this->gallery = $gallery;
 
+	return $this;
+}
+
+/**
+* Get categories - Categories
+* @return \Pimcore\Model\DataObject\Category[]
+*/
+public function getCategories(): array
+{
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("categories");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	$data = $this->getClass()->getFieldDefinition("categories")->preGetData($this);
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set categories - Categories
+* @param \Pimcore\Model\DataObject\Category[] $categories
+* @return $this
+*/
+public function setCategories(?array $categories): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
+	$fd = $this->getClass()->getFieldDefinition("categories");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getCategories();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $categories);
+	if (!$isEqual) {
+		$this->markFieldDirty("categories", true);
+	}
+	$this->categories = $fd->preSetData($this, $categories);
 	return $this;
 }
 

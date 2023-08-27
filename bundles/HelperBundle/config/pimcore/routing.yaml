@@ -1,0 +1,3 @@
+helper_homepage:
+    path:     /helper
+    defaults: { _controller: HelperBundle\Controller\DefaultController:indexAction }

@@ -78,6 +78,18 @@ public function filterByImage ($data, $operator = '='): static
 	return $this;
 }
 
+/**
+* Filter by categories (Categories)
+* @param mixed $data
+* @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByCategories ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("categories")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
 
 
 }

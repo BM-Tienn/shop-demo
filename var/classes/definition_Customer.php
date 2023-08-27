@@ -13,6 +13,7 @@
  * - phone [input]
  * - idEncoded [input]
  * - profilingConsent [consent]
+ * - birthDate [date]
  * - city [input]
  * - zip [input]
  * - street [input]
@@ -30,7 +31,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1693111914,
+   'modificationDate' => 1693112297,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '\\CustomerManagementFrameworkBundle\\Model\\AbstractCustomer',
@@ -308,6 +309,30 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'defaultValue' => 0,
                  'width' => '',
+              )),
+              8 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
+                 'name' => 'birthDate',
+                 'title' => 'Birth Date',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'useCurrentDate' => false,
+                 'columnType' => 'bigint(20)',
+                 'defaultValueGenerator' => '',
               )),
             ),
              'locked' => false,

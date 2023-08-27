@@ -13,6 +13,7 @@
  * - phone [input]
  * - idEncoded [input]
  * - profilingConsent [consent]
+ * - birthDate [date]
  * - city [input]
  * - zip [input]
  * - street [input]
@@ -37,6 +38,7 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\Customer\Listing|\Pimcore\Model\DataObject\Customer|null getByGender(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\Customer\Listing|\Pimcore\Model\DataObject\Customer|null getByPhone(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\Customer\Listing|\Pimcore\Model\DataObject\Customer|null getByIdEncoded(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\Customer\Listing|\Pimcore\Model\DataObject\Customer|null getByBirthDate(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\Customer\Listing|\Pimcore\Model\DataObject\Customer|null getByCity(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\Customer\Listing|\Pimcore\Model\DataObject\Customer|null getByZip(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\Customer\Listing|\Pimcore\Model\DataObject\Customer|null getByStreet(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
@@ -56,6 +58,7 @@ public const FIELD_GENDER = 'gender';
 public const FIELD_PHONE = 'phone';
 public const FIELD_ID_ENCODED = 'idEncoded';
 public const FIELD_PROFILING_CONSENT = 'profilingConsent';
+public const FIELD_BIRTH_DATE = 'birthDate';
 public const FIELD_CITY = 'city';
 public const FIELD_ZIP = 'zip';
 public const FIELD_STREET = 'street';
@@ -75,6 +78,7 @@ protected $gender;
 protected $phone;
 protected $idEncoded;
 protected $profilingConsent;
+protected $birthDate;
 protected $city;
 protected $zip;
 protected $street;
@@ -380,6 +384,42 @@ public function setProfilingConsent(?\Pimcore\Model\DataObject\Data\Consent $pro
 	$this->markFieldDirty("profilingConsent", true);
 
 	$this->profilingConsent = $profilingConsent;
+
+	return $this;
+}
+
+/**
+* Get birthDate - Birth Date
+* @return \Carbon\Carbon|null
+*/
+public function getBirthDate(): ?\Carbon\Carbon
+{
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("birthDate");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	$data = $this->birthDate;
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set birthDate - Birth Date
+* @param \Carbon\Carbon|null $birthDate
+* @return $this
+*/
+public function setBirthDate(?\Carbon\Carbon $birthDate): static
+{
+	$this->markFieldDirty("birthDate", true);
+
+	$this->birthDate = $birthDate;
 
 	return $this;
 }
