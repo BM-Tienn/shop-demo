@@ -1,3 +1,6 @@
+{% set products = products %}
+{% set params = app.request.query.all %}
+
 <!-- Products Start -->
 <div class="container-fluid product py-5 my-5">
 	<div class="container py-5">
@@ -9,7 +12,32 @@
 				{{ pimcore_input('title', { placeholder: 'Tiêu đề chính' }) }}
 			</h1>
 		</div>
+
+		{% if editmode %}
+            {% set count = not pimcore_numeric('count').isEmpty() ? pimcore_numeric('count').getData() : 0 %}
+
+            {% if count is defined and count > 0 %}
+                <h3>Kéo sản phẩm muốn hiển thị</h3>
+
+                {% for i in range(1, count) %}
+                    {{ pimcore_relation("product" ~ i, {
+                        "types": ["object"],
+                        "subtypes": {
+                            "object": ["object"],
+                        },
+                        "classes": ["Product"],
+                        "class": 'm-3'
+                    }) }}
+                {% endfor %}
+
+            {% endif %}
+
+        {% else %}
+
+            {{ render(controller('App\\Controller\\AreablockController::listingAction', params | merge({ "products": products }) )) }}
 		
+        {% endif %}
+
 	</div>
 </div>
 <!-- Products End -->

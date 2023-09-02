@@ -1,7 +1,8 @@
-<a href="" class="d-block product-item rounded">
+{% set detailLink = helperbundle_abstract_detaillink(product) %}
+<a href="{{ detailLink }}" class="d-block product-item rounded">
 	<img src="{{ asset('statics/img/product-1.jpg') }}" alt="">
 	<div class="bg-white shadow-sm text-center p-4 position-relative mt-n5 mx-4">
-		<h4 class="text-primary">Green Tea</h4>
-		<span class="text-body">Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum</span>
+		<h4 class="text-primary">{{ product.name }}</h4>
+		<span class="text-body">{{ product.description | nl2br }}</span>
 	</div>
 </a>

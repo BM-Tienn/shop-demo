@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bridge\Twig\Attribute\Template;
 
-class ContentController extends FrontendController
+class ContentController extends BaseController
 {
     /**
      * @param Request $request

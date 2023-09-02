@@ -82,14 +82,14 @@ class AbstractLinkGenerator implements LinkGeneratorInterface
         if ($object instanceof Category) {
             $routeName = 'category-detail';
             $name = $object->getName($localePath) ? $object->getName($localePath) : $routeName;
-            $documentRoot = $document->getProperty('category_document');
+            $documentRoot = $document;
             return $this->getLink($object, $params, $name, $routeName, $documentRoot);
         }
 
         if ($object instanceof Product) {
             $routeName = 'product-detail';
             $name = $object->getName($localePath) ? $object->getName($localePath) : $routeName;
-            $documentRoot = $document->getProperty('product_document');
+            $documentRoot = $document;
             return $this->getLink($object, $params, $name, $routeName, $documentRoot);
         }
 

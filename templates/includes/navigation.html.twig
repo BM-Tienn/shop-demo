@@ -1,0 +1,69 @@
+{% set navStartNode = document.getProperty('navigation_root') %}
+{% if not navStartNode is instanceof('\\Pimcore\\Model\\Document\\Page') %}
+	{% set navStartNode = pimcore_document(2) %}
+{% endif %}
+
+{% set mainNavigation = helperbundle_navigation_data_links( document, navStartNode ) %}
+{% set menuRenderer = pimcore_nav_renderer('menu') %}
+
+<button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+	<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarCollapse">
+	<div class="navbar-nav ms-auto">
+
+		{% for page in mainNavigation %}
+
+			{% if page.isVisible() and menuRenderer.accept(page) %}
+				{% set hasChildren = page.hasPages() %}
+				{% if not hasChildren %}
+					<a href="{{ page.getHref() }}" class="nav-item nav-link">
+						{{ page.getLabel() }}
+					</a>
+				{% else %}
+					<div class="nav-item dropdown">
+						<a href="{{ page.getHref() }}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+							{{ page.getLabel() }}
+						</a>
+						<div class="dropdown-menu bg-light rounded-0 m-0">
+							{% for child in page.getPages() %}
+								{% set hasChildrenSub = child.hasPages() %}
+								{% if child.isVisible() and menuRenderer.accept(child) and not hasChildrenSub %}
+									<a href="{{ child.getHref() }}" class="dropdown-item">
+										{{ child.getLabel() }}
+									</a>
+								{# {% else %}
+									{% if child.isVisible() and menuRenderer.accept(child) %}
+										<div class="--itemsubmenu sub">
+											<div class="--itemsub2menu">
+												<a href="{{ child.getHref() }}" class="--link">
+													{{ child.getLabel() }}
+												</a>
+											</div>
+											<div class="--sub2menu">
+												{% for childSub in child.getPages() %}
+													{% if childSub.isVisible() and menuRenderer.accept(childSub) %}
+														<div class="--itemsub2menu">
+															<a href="{{ childSub.getHref() }}" class="--link">
+																{{ childSub.getLabel() }}
+															</a>
+														</div>
+													{% endif %}
+												{% endfor %}
+											</div>
+										</div>
+									{% endif %} #}
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+	</div>
+	<div class="border-start ps-4 d-none d-lg-block">
+		<button type="button" class="btn btn-sm p-0">
+			<i class="fa fa-search"></i>
+		</button>
+	</div>
+</div>

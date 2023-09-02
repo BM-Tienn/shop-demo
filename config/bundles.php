@@ -15,4 +15,5 @@ return [
     CustomerManagementFrameworkBundle\PimcoreCustomerManagementFrameworkBundle::class => ['all' => true],
     Pimcore\Bundle\ObjectMergerBundle\ObjectMergerBundle::class => ['all' => true],
     HelperBundle\HelperBundle::class => ['all' => true],
+    Pimcore\Bundle\PerspectiveEditorBundle\PimcorePerspectiveEditorBundle::class => ['all' => true],
 ];

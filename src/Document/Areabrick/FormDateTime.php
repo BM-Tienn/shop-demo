@@ -2,36 +2,25 @@
 
 namespace App\Document\Areabrick;
 
-use App\Service\APIService;
 use Pimcore\Extension\Document\Areabrick\EditableDialogBoxConfiguration;
 use Pimcore\Extension\Document\Areabrick\EditableDialogBoxInterface;
 use Pimcore\Model\Document;
 use Pimcore\Model\Document\Editable\Area\Info;
-use Symfony\Component\HttpFoundation\Response;
 
-class Product extends AbstractAreabrick implements EditableDialogBoxInterface
+class FormDateTime extends AbstractAreabrick implements EditableDialogBoxInterface
 {
     /**
      * {@inheritdoc}
      */
     public function getName(): string
     {
-        return 'Product';
+        return 'Form Date Time';
     }
 
-    public function action(Info $info): ?Response
+    public function getDescription(): string
     {
-        $products = [];
-
-        for ($i=1; $i<=10; $i++) {
-            $products[] = $this->getDocumentEditable($info->getDocument(), 'relation', 'product' . $i)->getElement();
-        }
-
-        $info->setParam('products', $products);
-
-        return null;
+        return '';
     }
-
 
     public function getEditableDialogBoxConfiguration(Document\Editable $area, ?Info $info): EditableDialogBoxConfiguration
     {
@@ -40,9 +29,19 @@ class Product extends AbstractAreabrick implements EditableDialogBoxInterface
         $config->setReloadOnClose(true);
         $config->setItems([
             [
-                'type' => 'numeric',
-                'label' => 'Số lượng sản phẩm hiển thị',
-                'name' => 'count',
+                'type' => 'input',
+                'label' => 'Nội dung hiển thị của label',
+                'name' => 'label'
+            ],
+            [
+                'type' => 'checkbox',
+                'name' => 'required',
+                'label' => 'Trường bắt buộc nhập hay không',
+            ],
+            [
+                'type' => 'checkbox',
+                'name' => 'dateNow',
+                'label' => 'Tự động lấy thời gian thực khi submit',
             ],
         ]);
 

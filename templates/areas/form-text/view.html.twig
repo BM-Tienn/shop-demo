@@ -1,0 +1,48 @@
+{# lấy danh sách field theo loại #}
+{# {% set fieldtring = company_fields_type('string') %}
+{% set fieldCrmMultifield = company_fields_type('crm_multifield') %}
+
+{% set selectStore = [] %}
+
+{% for field in fieldtring %}
+    {% set selectStore = selectStore|merge([[field.field, field.name]]) %}
+{% endfor %}
+
+{% for field in fieldCrmMultifield %}
+    {% set selectStore = selectStore|merge([[field.field, field.name]]) %}
+{% endfor %}
+
+{% set checkField = pimcore_select('select', {
+    store: selectStore,
+    reload: false,
+    width: 300
+}) %} #}
+
+{% set checkHide = pimcore_checkbox('hide').isChecked() %}
+{% set checkRequired = pimcore_checkbox('required').isChecked() %}
+{% set value = pimcore_input('value').getData() %}
+
+{# {% if editmode %} 
+    <h6>Vui lòng chọn trường để mapping </h6>
+	{{ checkField | raw }}
+{% endif %} #}
+
+{% if checkHide %}
+    <input type="text" 
+        hidden
+        name="company-{{ checkField.getData() }}" 
+        value="{{ value }}"
+    />
+{% else %}
+    <div class="form-group">
+        <label for="company-{{ checkField.getData() }}">
+            {{ pimcore_input('label').getData() | trans }}
+        </label>
+        <input type="text" 
+            {% if checkRequired %} required {% endif %}
+            {% if checkHide %} hidden {% endif %}
+            name="company-{{ checkField.getData() }}" 
+            placeholder="{{ pimcore_input('placeholder').getData() | trans }}"
+        />
+    </div>
+{% endif %}

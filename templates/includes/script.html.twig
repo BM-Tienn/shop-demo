@@ -1,10 +1,17 @@
-<!-- JavaScript Libraries -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{{ asset('lib/wow/wow.min.js') }}"></script>
-<script src="{{ asset('lib/easing/easing.min.js') }}"></script>
-<script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
-<script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+{% apply spaceless %} 
+    {% do pimcore_head_script().appendFile(asset('statics/js/jquery.min.js')) %}
+    {% do pimcore_head_script().appendFile(asset('statics/js/bootstrap.bundle.min.js')) %}
+    {% do pimcore_head_script().appendFile(asset('statics/lib/wow/wow.min.js')) %} 
+    {% do pimcore_head_script().appendFile(asset('statics/lib/easing/easing.min.js')) %}
+    {% do pimcore_head_script().appendFile(asset('statics/lib/waypoints/waypoints.min.js')) %} 
+    {% do pimcore_head_script().appendFile(asset('statics/lib/owlcarousel/owl.carousel.min.js')) %} 
+    {% do pimcore_head_script().appendFile(asset('statics/js/main.js')) %} 
+{% endapply %} 
 
-<!-- Template Javascript -->
-<script src="{{ asset('js/main.js') }}"></script>
+{% block headscripts deferred %}
+    {{ pimcore_head_script() }}
+{% endblock %} 
+
+{% block inlinescripts deferred %}
+    {{ pimcore_inline_script() }}
+{% endblock %}

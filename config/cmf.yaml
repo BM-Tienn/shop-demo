@@ -141,12 +141,12 @@ pimcore_customer_management_framework:
         # keep it secret
         secret:               'def00000a2fe8752646f7d244c950f0399180a7ab1fb38e43edaf05e0ff40cfa2bbedebf726268d0fc73d5f74d6992a886f83eb294535eb0683bb15db9c4929bbd138aee'
 
-    # Configuration for segment assignment
-    segment_assignment_classes:
-        types:
-            document:
-                page: true
-            object:
-                object:
-                    Category: true
-                folder: true
+    # # Configuration for segment assignment
+    # segment_assignment_classes:
+    #     types:
+    #         document:
+    #             page: true
+    #         object:
+    #             object:
+    #                 Category: true
+    #             folder: true

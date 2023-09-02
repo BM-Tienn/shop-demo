@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                d6ed2fc9-0298-4115-9655-487bb5186b67:
+                    name: 'Form Default'
+                    group: ''
+                    controller: 'App\Controller\FormController::defaultAction'
+                    template: null
+                    type: snippet
+                    priority: 0
+                    creationDate: 1693645480
+                    modificationDate: 1693645507
+                    staticGeneratorEnabled: false

@@ -1,0 +1,66 @@
+{% if editmode %}
+	{{ include("includes/link.html.twig") }}
+	{{ include("includes/script.html.twig") }}
+{% endif %}
+
+{% if editmode %}
+	<div class="row pb-5">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<div class="--txt">
+			{% endif %}
+			<form class="cards --form form-bitrix">
+				{% if editmode %}
+					<h1>Cấu hình chung cho form</h1>
+					<h2>Tiêu đề</h2>
+                    {{ pimcore_input('title') }}
+                {% else %}
+                    <h4 class="--title">{{ pimcore_input('title').getData() | trans }}</h4>
+				{% endif %}
+
+				{% if editmode %}
+					<h2>Mô tả</h2>
+					{{  pimcore_textarea("description", {
+                            htmlspecialchars: false,
+                            placeholder: "Mô tả của form"
+                        })
+                    }}
+                {% else %}
+                    <div class="--des">
+                        {{  ( pimcore_textarea("description", {
+                                htmlspecialchars: false
+                            }).getData() | nl2br ) | trans 
+                        }}
+                    </div>
+				{% endif %}
+
+				<div class="form">
+                    {% if editmode %}
+						<h1>Cấu hình chi tiết các field</h1>
+					{% endif %}
+
+					{{  pimcore_areablock("form", {
+                            "allowed": [
+                                "form-text", "form-number", "form-select", 
+                                "form-textarea", "form-date", "form-date-time"
+                            ],
+                        })
+                    }}
+				</div>
+
+				{% if editmode %}
+					<h5>Nội dung ô submit</h5>
+					{{ pimcore_input('submit') }}
+                {% else %}
+                    <button class="btn btn-1">
+                        <span>{{ pimcore_input('submit').getData() | trans }}</span>
+                    </button>
+				{% endif %}
+			</form>
+
+			{% if editmode %}
+			</div>
+		</div>
+        <div class="col-md-2"></div>
+	</div>
+{% endif %}

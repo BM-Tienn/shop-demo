@@ -1,0 +1,44 @@
+{# lấy danh sách field theo loại #}
+{# {% set fieldDate = deal_fields_type('datetime') %}
+{% set selectStore = [] %}
+
+{% for field in fieldDate %}
+    {% set selectStore = selectStore|merge([[field.field, field.name]]) %}
+{% endfor %}
+
+{% set checkField = pimcore_select('select', {
+    store: selectStore,
+    reload: false,
+    width: 300
+}) %} #}
+
+{% set checkRequired = pimcore_checkbox('required').isChecked() %}
+{% set checkNow = pimcore_checkbox('dateNow').isChecked() %}
+
+{# {% if editmode %} 
+    <h6>Vui lòng chọn trường để mapping </h6>
+	{{ checkField | raw }}
+{% endif %} #}
+
+{% if checkNow %}
+    <input type="datetime-local"
+        hidden
+        name="company-{{ checkField.getData() }}" 
+    />
+    <input type="checkbox"
+        name="check-company-{{ checkField.getData() }}" 
+        checked
+        hidden
+    />
+{% else %}
+    <div class="form-group date">
+        <label for="company-{{ checkField.getData() }}">
+            {{ pimcore_input('label').getData() | trans }}
+        </label>
+        <input type="datetime-local" 
+            {% if checkRequired %} required {% endif %}
+            name="company-{{ checkField.getData() }}" 
+            onfocus="this.showPicker()"
+        />
+    </div>
+{% endif %}

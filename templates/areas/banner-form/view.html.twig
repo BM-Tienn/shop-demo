@@ -1,0 +1,33 @@
+
+<div class="dtserviceytBanner">
+    {% if editmode %}
+
+        {{  pimcore_image("bannerImage", {
+            title: "Cập nhật ảnh banner"
+        }) }}
+
+    {% else %}
+        <div class="--img">
+            {% set bannerImage = pimcore_image('bannerImage').isEmpty() ?
+            pimcore_website_config('banner') : pimcore_image('bannerImage').image %}
+
+            {{ include("components/image.html.twig", { image: bannerImage, class: "" }) }}
+        </div>
+    {% endif %}
+
+    {% if editmode %}
+        {{ pimcore_link("bannerLink") }}
+    {% else %}
+
+        {% if not pimcore_link("bannerLink").isEmpty() %}
+        <div class="container">
+            <div class="--content">
+                {% if not pimcore_link("bannerLink").isEmpty() %}
+                    {{ pimcore_inc(pimcore_link("bannerLink").getHref() )}}
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+    {% endif %}
+</div>
